@@ -1,0 +1,1178 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Firdevs Köse | Portfolyo & İnteraktif Cihaz Deneyimi</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+    }
+
+    body {
+      background-color: #05070a;
+      color: #f1f5f9;
+      min-height: 100vh;
+      overflow-x: hidden;
+      position: relative;
+    }
+
+    /* Cosmic Glow Background */
+    .ambient-glow {
+      position: fixed;
+      top: 20%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 700px;
+      height: 700px;
+      background: radial-gradient(circle, rgba(16, 185, 129, 0.12) 0%, rgba(6, 182, 212, 0.08) 35%, rgba(0, 0, 0, 0) 70%);
+      pointer-events: none;
+      z-index: 0;
+      filter: blur(80px);
+    }
+
+    /* Navbar */
+    nav {
+      position: relative;
+      z-index: 10;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1.5rem 4rem;
+      max-width: 1400px;
+      margin: 0 auto;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      text-decoration: none;
+      color: #fff;
+    }
+
+    .brand-icon {
+      width: 40px;
+      height: 40px;
+      border-radius: 12px;
+      background: linear-gradient(135deg, #10b981, #06b6d4);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 800;
+      font-size: 1.25rem;
+      color: #05070a;
+      box-shadow: 0 0 20px rgba(16, 185, 129, 0.4);
+    }
+
+    .brand-text {
+      font-weight: 700;
+      font-size: 1.25rem;
+      letter-spacing: -0.5px;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 2rem;
+      align-items: center;
+      list-style: none;
+    }
+
+    .nav-links a {
+      color: #94a3b8;
+      text-decoration: none;
+      font-size: 0.95rem;
+      font-weight: 500;
+      transition: all 0.2s;
+    }
+
+    .nav-links a:hover, .nav-links a.active {
+      color: #38bdf8;
+    }
+
+    .nav-links a.active {
+      background: rgba(56, 189, 248, 0.1);
+      padding: 0.4rem 1rem;
+      border-radius: 20px;
+      border: 1px solid rgba(56, 189, 248, 0.25);
+    }
+
+    .cv-btn {
+      background: linear-gradient(135deg, #0ea5e9, #10b981);
+      color: #05070a;
+      font-weight: 700;
+      padding: 0.6rem 1.4rem;
+      border-radius: 24px;
+      text-decoration: none;
+      font-size: 0.9rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      transition: all 0.3s;
+      box-shadow: 0 4px 20px rgba(14, 165, 233, 0.3);
+    }
+
+    .cv-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 25px rgba(16, 185, 129, 0.5);
+    }
+
+    /* Hero / Header Section */
+    .hero-header {
+      position: relative;
+      z-index: 5;
+      text-align: center;
+      padding: 3rem 1.5rem 1rem;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    .status-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.4rem 1rem;
+      background: rgba(16, 185, 129, 0.1);
+      border: 1px solid rgba(16, 185, 129, 0.3);
+      border-radius: 30px;
+      font-size: 0.85rem;
+      color: #34d399;
+      font-weight: 600;
+      margin-bottom: 1.25rem;
+    }
+
+    .status-pulse {
+      width: 8px;
+      height: 8px;
+      background-color: #10b981;
+      border-radius: 50%;
+      box-shadow: 0 0 10px #10b981;
+      animation: pulse 2s infinite;
+    }
+
+    @keyframes pulse {
+      0% { transform: scale(0.95); opacity: 0.8; }
+      50% { transform: scale(1.3); opacity: 1; }
+      100% { transform: scale(0.95); opacity: 0.8; }
+    }
+
+    .hero-title {
+      font-size: 2.75rem;
+      font-weight: 800;
+      letter-spacing: -1px;
+      line-height: 1.2;
+      margin-bottom: 1rem;
+    }
+
+    .hero-title span {
+      background: linear-gradient(135deg, #38bdf8 0%, #34d399 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .hero-desc {
+      color: #94a3b8;
+      font-size: 1.1rem;
+      line-height: 1.6;
+      max-width: 680px;
+      margin: 0 auto 2rem;
+    }
+
+    /* Project Tabs */
+    .project-tabs {
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+      margin-bottom: 2.5rem;
+      flex-wrap: wrap;
+    }
+
+    .tab-btn {
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      color: #94a3b8;
+      padding: 0.65rem 1.4rem;
+      border-radius: 30px;
+      cursor: pointer;
+      font-weight: 600;
+      font-size: 0.9rem;
+      transition: all 0.25s;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .tab-btn:hover {
+      border-color: rgba(56, 189, 248, 0.4);
+      color: #fff;
+    }
+
+    .tab-btn.active {
+      background: rgba(14, 165, 233, 0.15);
+      border-color: #38bdf8;
+      color: #38bdf8;
+      box-shadow: 0 0 20px rgba(56, 189, 248, 0.2);
+    }
+
+    /* ============================================================ */
+    /* INTERACTIVE PHONE SHOWCASE (User's Exact Desired Feature)   */
+    /* ============================================================ */
+    .phone-showcase-container {
+      position: relative;
+      z-index: 5;
+      max-width: 1200px;
+      margin: 0 auto 5rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 700px;
+      padding: 1rem;
+    }
+
+    /* Side Callouts / Annotations with Arrows */
+    .callout {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+      opacity: 1;
+      transition: all 0.4s ease;
+    }
+
+    .callout.left {
+      justify-content: flex-end;
+      text-align: right;
+    }
+
+    .callout.right {
+      justify-content: flex-start;
+      text-align: left;
+    }
+
+    .callout-text {
+      color: #cbd5e1;
+      font-size: 1rem;
+      font-weight: 500;
+      max-width: 220px;
+      line-height: 1.5;
+    }
+
+    .callout-line {
+      width: 50px;
+      height: 1px;
+      background: linear-gradient(90deg, rgba(255,255,255,0.1), rgba(255,255,255,0.4));
+      position: relative;
+    }
+
+    .callout.left .callout-line {
+      background: linear-gradient(90deg, rgba(255,255,255,0.4), rgba(255,255,255,0.1));
+    }
+
+    /* Navigation Arrows (< and >) */
+    .nav-arrow-btn {
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      background: rgba(15, 23, 42, 0.7);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      color: #f8fafc;
+      font-size: 1.25rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      backdrop-filter: blur(12px);
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+    }
+
+    .nav-arrow-btn:hover {
+      background: rgba(56, 189, 248, 0.2);
+      border-color: #38bdf8;
+      color: #38bdf8;
+      transform: scale(1.1);
+      box-shadow: 0 0 25px rgba(56, 189, 248, 0.4);
+    }
+
+    /* Realistic Smartphone Frame */
+    .phone-wrapper {
+      position: relative;
+      margin: 0 2rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .phone-device {
+      width: 320px;
+      height: 650px;
+      background: #090d14;
+      border-radius: 46px;
+      border: 10px solid #1a2230;
+      outline: 2px solid rgba(255, 255, 255, 0.08);
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 25px 60px -15px rgba(0, 0, 0, 0.9), 
+                  0 0 40px rgba(16, 185, 129, 0.15),
+                  inset 0 0 15px rgba(255, 255, 255, 0.03);
+      transition: transform 0.3s ease;
+    }
+
+    /* Dynamic Island / Notch */
+    .phone-notch {
+      position: absolute;
+      top: 10px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 100px;
+      height: 24px;
+      background: #000;
+      border-radius: 20px;
+      z-index: 20;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 10px;
+    }
+
+    .camera-lens {
+      width: 10px;
+      height: 10px;
+      background: #0f172a;
+      border-radius: 50%;
+      border: 1px solid #1e293b;
+    }
+
+    /* Screen Slider Area */
+    .phone-screen {
+      width: 100%;
+      height: 100%;
+      position: relative;
+      overflow: hidden;
+      background: #06090e;
+    }
+
+    .screen-slide {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      padding: 45px 16px 20px;
+      opacity: 0;
+      transform: translateX(100%);
+      transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+      display: flex;
+      flex-direction: column;
+    }
+
+    .screen-slide.active {
+      opacity: 1;
+      transform: translateX(0);
+    }
+
+    .screen-slide.prev {
+      opacity: 0;
+      transform: translateX(-100%);
+    }
+
+    /* Simulated Mobile App UI (İşletme Defteri) */
+    .app-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1.25rem;
+    }
+
+    .app-logo-badge {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-weight: 700;
+      font-size: 0.95rem;
+      color: #38bdf8;
+    }
+
+    .app-bell {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.05);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.8rem;
+    }
+
+    /* Financial Card */
+    .fin-card {
+      background: linear-gradient(135deg, rgba(30, 41, 59, 0.8), rgba(15, 23, 42, 0.9));
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 20px;
+      padding: 1.25rem;
+      margin-bottom: 1rem;
+    }
+
+    .fin-label {
+      font-size: 0.75rem;
+      color: #94a3b8;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .fin-val {
+      font-size: 1.6rem;
+      font-weight: 800;
+      color: #fff;
+      margin: 0.3rem 0;
+    }
+
+    .fin-row {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 0.75rem;
+      padding-top: 0.75rem;
+      border-top: 1px solid rgba(255, 255, 255, 0.05);
+    }
+
+    .fin-subval {
+      font-size: 0.8rem;
+    }
+
+    .fin-subval.pos { color: #34d399; }
+    .fin-subval.neg { color: #f87171; }
+
+    /* Quick Action Buttons in App */
+    .quick-actions {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 0.5rem;
+      margin-bottom: 1rem;
+    }
+
+    .qa-btn {
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      border-radius: 14px;
+      padding: 0.75rem 0.25rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.35rem;
+      font-size: 0.65rem;
+      color: #cbd5e1;
+    }
+
+    .qa-btn i {
+      font-size: 1rem;
+    }
+
+    /* Customer / Transaction List in App */
+    .app-list {
+      flex: 1;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 0.6rem;
+    }
+
+    .app-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: rgba(255, 255, 255, 0.03);
+      padding: 0.75rem;
+      border-radius: 12px;
+      border: 1px solid rgba(255, 255, 255, 0.04);
+    }
+
+    .item-info h4 {
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: #f1f5f9;
+    }
+
+    .item-info p {
+      font-size: 0.65rem;
+      color: #64748b;
+    }
+
+    .item-amount {
+      font-size: 0.8rem;
+      font-weight: 700;
+    }
+
+    /* Chart Simulation */
+    .chart-box {
+      height: 120px;
+      background: rgba(16, 185, 129, 0.05);
+      border: 1px solid rgba(16, 185, 129, 0.15);
+      border-radius: 16px;
+      padding: 0.75rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      margin-bottom: 1rem;
+    }
+
+    .chart-bars {
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      height: 70px;
+      gap: 6px;
+    }
+
+    .chart-bar {
+      flex: 1;
+      background: linear-gradient(180deg, #38bdf8, #0ea5e9);
+      border-radius: 4px 4px 0 0;
+      transition: height 0.3s;
+    }
+
+    .chart-bar:nth-child(even) {
+      background: linear-gradient(180deg, #34d399, #10b981);
+    }
+
+    /* App Bottom Navigation */
+    .app-nav {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 55px;
+      background: rgba(10, 15, 25, 0.95);
+      backdrop-filter: blur(10px);
+      border-top: 1px solid rgba(255, 255, 255, 0.05);
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+      padding-bottom: 10px;
+    }
+
+    .app-nav-item {
+      font-size: 0.7rem;
+      color: #64748b;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 2px;
+    }
+
+    .app-nav-item.active {
+      color: #38bdf8;
+    }
+
+    /* Bottom Info & Dots */
+    .phone-bottom-info {
+      margin-top: 1.5rem;
+      text-align: center;
+    }
+
+    .active-screen-title {
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: #f1f5f9;
+      margin-bottom: 0.75rem;
+      transition: all 0.3s;
+    }
+
+    .dots-container {
+      display: flex;
+      justify-content: center;
+      gap: 0.5rem;
+    }
+
+    .dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.2);
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+
+    .dot.active {
+      width: 24px;
+      border-radius: 10px;
+      background: #38bdf8;
+      box-shadow: 0 0 10px #38bdf8;
+    }
+
+    /* Links & CTAs under Phone */
+    .project-actions {
+      display: flex;
+      gap: 1rem;
+      justify-content: center;
+      margin-top: 1.5rem;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, #0ea5e9, #10b981);
+      color: #05070a;
+      font-weight: 700;
+      padding: 0.75rem 1.75rem;
+      border-radius: 30px;
+      text-decoration: none;
+      font-size: 0.95rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      transition: all 0.25s;
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 25px rgba(14, 165, 233, 0.4);
+    }
+
+    .btn-secondary {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      color: #f1f5f9;
+      font-weight: 600;
+      padding: 0.75rem 1.75rem;
+      border-radius: 30px;
+      text-decoration: none;
+      font-size: 0.95rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      transition: all 0.25s;
+    }
+
+    .btn-secondary:hover {
+      background: rgba(255, 255, 255, 0.1);
+      border-color: rgba(255, 255, 255, 0.3);
+    }
+
+    /* Bento Grid Section */
+    .bento-section {
+      max-width: 1200px;
+      margin: 0 auto 5rem;
+      padding: 0 1.5rem;
+    }
+
+    .section-header {
+      text-align: center;
+      margin-bottom: 2.5rem;
+    }
+
+    .section-tag {
+      color: #38bdf8;
+      font-size: 0.85rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    .section-title {
+      font-size: 2rem;
+      font-weight: 800;
+      margin-top: 0.5rem;
+    }
+
+    .bento-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1.25rem;
+    }
+
+    .bento-card {
+      background: rgba(15, 23, 42, 0.5);
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      border-radius: 20px;
+      padding: 1.5rem;
+      backdrop-filter: blur(10px);
+      transition: all 0.3s;
+    }
+
+    .bento-card:hover {
+      border-color: rgba(56, 189, 248, 0.3);
+      transform: translateY(-3px);
+      box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.5);
+    }
+
+    .bento-card.col-2 {
+      grid-column: span 2;
+    }
+
+    .bento-icon {
+      font-size: 1.5rem;
+      margin-bottom: 1rem;
+      display: inline-block;
+    }
+
+    .bento-card h3 {
+      font-size: 1.15rem;
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+      color: #f8fafc;
+    }
+
+    .bento-card p {
+      color: #94a3b8;
+      font-size: 0.9rem;
+      line-height: 1.6;
+    }
+
+    .bento-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-top: 1rem;
+    }
+
+    .tag-badge {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      padding: 0.3rem 0.75rem;
+      border-radius: 12px;
+      font-size: 0.75rem;
+      color: #cbd5e1;
+      font-weight: 500;
+    }
+
+    @media (max-width: 900px) {
+      .bento-grid {
+        grid-template-columns: 1fr;
+      }
+      .bento-card.col-2 {
+        grid-column: span 1;
+      }
+      .phone-showcase-container {
+        flex-direction: column;
+      }
+      .callout {
+        display: none;
+      }
+      .phone-wrapper {
+        margin: 1.5rem 0;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="ambient-glow"></div>
+
+  <!-- Navbar -->
+  <nav>
+    <a href="#" class="brand">
+      <div class="brand-icon">F</div>
+      <div class="brand-text">Firdevs Köse</div>
+    </a>
+    <ul class="nav-links">
+      <li><a href="#projeler" class="active">Projeler</a></li>
+      <li><a href="#deneyim">Deneyim & Staj</a></li>
+      <li><a href="#yetenekler">Yetenekler</a></li>
+      <li><a href="#hakkimda">Hakkımda</a></li>
+    </ul>
+    <a href="#iletisim" class="cv-btn">
+      <svg width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+        <path d="M.5 9.9a.5.5 0 0 1 .5.5v2.5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-2.5a.5.5 0 0 1 1 0v2.5a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2v-2.5a.5.5 0 0 1 .5-.5z"/>
+        <path d="M7.646 11.854a.5.5 0 0 0 .708 0l3-3a.5.5 0 0 0-.708-.708L8.5 10.293V1.5a.5.5 0 0 0-1 0v8.793L5.354 8.146a.5.5 0 1 0-.708.708l3 3z"/>
+      </svg>
+      CV'yi İndir
+    </a>
+  </nav>
+
+  <!-- Hero / Header -->
+  <header class="hero-header">
+    <div class="status-badge">
+      <span class="status-pulse"></span>
+      Google Play Store'da Aktif Kapalı Test Sürümü
+    </div>
+    <h1 class="hero-title">
+      Gerçek Dünya İhtiyaçlarına <br>
+      <span>Modern Mobil & Web Çözümleri</span>
+    </h1>
+    <p class="hero-desc">
+      Fırat Üniversitesi Yazılım Mühendisliği 4. sınıf öğrencisi. İzmir Statik Yazılım stajyeri. 
+      React, Flutter, C# .NET ve Capacitor ile uçtan uca canlı ürünler geliştiriyorum.
+    </p>
+
+    <!-- Proje Seçim Sekmeleri -->
+    <div class="project-tabs" id="projeler">
+      <button class="tab-btn active" onclick="switchProject('isletme')">
+        📱 İşletme Defteri (Google Play)
+      </button>
+      <button class="tab-btn" onclick="switchProject('sanaltur')">
+        🌐 360° Sanal Tur (Statik Yazılım)
+      </button>
+      <button class="tab-btn" onclick="switchProject('kasko')">
+        🏢 Kasko Makine (Canlı Ortaklık)
+      </button>
+      <button class="tab-btn" onclick="switchProject('grafix')">
+        🎨 Grafix Ajans (Netlify)
+      </button>
+    </div>
+  </header>
+
+  <!-- ============================================================ -->
+  <!-- İNTERAKTİF TELEFON VİTRİNİ (Senin Tam İstediğin Simülatör)    -->
+  <!-- ============================================================ -->
+  <main class="phone-showcase-container">
+    
+    <!-- Sol Açıklama Oku & Metni -->
+    <div class="callout left">
+      <div class="callout-text" id="callout-left-text">
+        İşletmenin tüm gelir, gider ve cari hareketlerini anlık özetleyin
+      </div>
+      <div class="callout-line"></div>
+      <button class="nav-arrow-btn" id="prev-btn" onclick="changeSlide(-1)">❮</button>
+    </div>
+
+    <!-- Ortadaki Gerçekçi Telefon Mockup'ı -->
+    <div class="phone-wrapper">
+      <div class="phone-device">
+        <!-- Dynamic Island / Ahize -->
+        <div class="phone-notch">
+          <div class="camera-lens"></div>
+        </div>
+
+        <!-- Ekran İçeriği (Kaydırılabilir Gerçekçi UI) -->
+        <div class="phone-screen">
+          
+          <!-- Ekran 1: Gelir-Gider & Dashboard -->
+          <div class="screen-slide active" id="slide-0">
+            <div class="app-header">
+              <div class="app-logo-badge">📒 İşletme Defteri</div>
+              <div class="app-bell">🔔</div>
+            </div>
+
+            <div class="fin-card">
+              <div class="fin-label">Net Kasa Durumu</div>
+              <div class="fin-val">₺ 42.850,00</div>
+              <div class="fin-row">
+                <span class="fin-subval pos">▲ Gelir: ₺ 68.200</span>
+                <span class="fin-subval neg">▼ Gider: ₺ 25.350</span>
+              </div>
+            </div>
+
+            <div class="chart-box">
+              <div class="fin-label" style="margin-bottom: 8px;">Aylık Nakit Akışı (2026)</div>
+              <div class="chart-bars">
+                <div class="chart-bar" style="height: 40%;"></div>
+                <div class="chart-bar" style="height: 65%;"></div>
+                <div class="chart-bar" style="height: 50%;"></div>
+                <div class="chart-bar" style="height: 85%;"></div>
+                <div class="chart-bar" style="height: 70%;"></div>
+                <div class="chart-bar" style="height: 95%;"></div>
+              </div>
+            </div>
+
+            <div class="quick-actions">
+              <div class="qa-btn"><span>➕</span><span>Satış</span></div>
+              <div class="qa-btn"><span>➖</span><span>Alış</span></div>
+              <div class="qa-btn"><span>💰</span><span>Tahsilat</span></div>
+              <div class="qa-btn"><span>💳</span><span>Ödeme</span></div>
+            </div>
+          </div>
+
+          <!-- Ekran 2: Cari Hesaplar & Müşteri Listesi -->
+          <div class="screen-slide" id="slide-1">
+            <div class="app-header">
+              <div class="app-logo-badge">👥 Cari Hesaplar</div>
+              <div class="app-bell">🔍</div>
+            </div>
+
+            <div class="fin-card" style="padding: 1rem; margin-bottom: 0.75rem;">
+              <div class="fin-label">Toplam Alacak</div>
+              <div class="fin-val" style="font-size: 1.3rem; color: #34d399;">₺ 18.400,00</div>
+            </div>
+
+            <div class="app-list">
+              <div class="app-item">
+                <div class="item-info">
+                  <h4>Yılmaz Yapı Market</h4>
+                  <p>Son İşlem: 10 Kas 2026</p>
+                </div>
+                <span class="item-amount" style="color: #34d399;">+₺ 8.500</span>
+              </div>
+
+              <div class="app-item">
+                <div class="item-info">
+                  <h4>Özkanlar Otomotiv</h4>
+                  <p>Son İşlem: 08 Kas 2026</p>
+                </div>
+                <span class="item-amount" style="color: #f87171;">-₺ 4.200</span>
+              </div>
+
+              <div class="app-item">
+                <div class="item-info">
+                  <h4>Akdeniz Tedarik</h4>
+                  <p>Son İşlem: 02 Kas 2026</p>
+                </div>
+                <span class="item-amount" style="color: #34d399;">+₺ 14.100</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Ekran 3: Yeni İşlem / Satış-Tahsilat Ekleme -->
+          <div class="screen-slide" id="slide-2">
+            <div class="app-header">
+              <div class="app-logo-badge">⚡ Yeni İşlem</div>
+              <div class="app-bell">✕</div>
+            </div>
+
+            <div class="fin-card">
+              <div class="fin-label">İşlem Türü</div>
+              <div style="display:flex; gap: 0.5rem; margin-top: 0.5rem;">
+                <span class="tag-badge" style="background:#0ea5e9; color:#fff;">Tahsilat</span>
+                <span class="tag-badge">Satış</span>
+                <span class="tag-badge">Ödeme</span>
+              </div>
+              <div class="fin-val" style="margin-top: 1rem; font-size: 1.8rem; color: #38bdf8;">₺ 5.000,00</div>
+              <div class="fin-label" style="margin-top: 0.5rem;">Cari: Yılmaz Yapı Market</div>
+            </div>
+
+            <div class="app-item" style="margin-top: 0.5rem;">
+              <div class="item-info">
+                <h4>Ödeme Yöntemi</h4>
+                <p>Havale / EFT (Garanti BBVA)</p>
+              </div>
+              <span>✔</span>
+            </div>
+
+            <div style="margin-top: 1.5rem; background: linear-gradient(135deg, #0ea5e9, #10b981); color:#000; text-align:center; padding: 0.8rem; border-radius: 12px; font-weight:700; font-size: 0.9rem;">
+              İşlemi Kaydet & Firestore Senkronize Et
+            </div>
+          </div>
+
+          <!-- Ekran 4: Raporlar & Analiz -->
+          <div class="screen-slide" id="slide-3">
+            <div class="app-header">
+              <div class="app-logo-badge">📊 Finansal Raporlar</div>
+              <div class="app-bell">📥</div>
+            </div>
+
+            <div class="fin-card">
+              <div class="fin-label">Dönemsel Kâr / Zarar</div>
+              <div class="fin-val" style="color: #34d399;">+ %28,4 Büyüme</div>
+              <p style="font-size: 0.75rem; color:#94a3b8; margin-top: 0.25rem;">Geçen aya oranla tahsilat hızı arttı.</p>
+            </div>
+
+            <div class="chart-box" style="height: 140px;">
+              <div class="fin-label">Satış vs Tahsilat Dengesi</div>
+              <div class="chart-bars" style="margin-top: 0.5rem;">
+                <div class="chart-bar" style="height: 50%;"></div>
+                <div class="chart-bar" style="height: 90%;"></div>
+                <div class="chart-bar" style="height: 60%;"></div>
+                <div class="chart-bar" style="height: 75%;"></div>
+                <div class="chart-bar" style="height: 100%;"></div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Alt Navigasyon Çubuğu -->
+          <div class="app-nav">
+            <div class="app-nav-item active" onclick="goToSlide(0)">
+              <span>📊</span>
+              <span>Özet</span>
+            </div>
+            <div class="app-nav-item" onclick="goToSlide(1)">
+              <span>👥</span>
+              <span>Cariler</span>
+            </div>
+            <div class="app-nav-item" onclick="goToSlide(2)">
+              <span>➕</span>
+              <span>İşlem</span>
+            </div>
+            <div class="app-nav-item" onclick="goToSlide(3)">
+              <span>📈</span>
+              <span>Rapor</span>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- Telefon Altı Başlık ve Noktalar -->
+      <div class="phone-bottom-info">
+        <div class="active-screen-title" id="screen-title">
+          1 / 4: Gelir, Gider ve Kasa Dashboard Ekranı
+        </div>
+        <div class="dots-container">
+          <div class="dot active" onclick="goToSlide(0)"></div>
+          <div class="dot" onclick="goToSlide(1)"></div>
+          <div class="dot" onclick="goToSlide(2)"></div>
+          <div class="dot" onclick="goToSlide(3)"></div>
+        </div>
+      </div>
+
+      <!-- Aksiyon Butonları -->
+      <div class="project-actions">
+        <a href="https://play.google.com/store/apps/details?id=com.firdevskose.isletmedefteri" target="_blank" class="btn-primary">
+          ▶ Google Play'de İncele (Kapalı Test)
+        </a>
+        <a href="https://github.com/Firdevs64" target="_blank" class="btn-secondary">
+          GitHub Repository
+        </a>
+      </div>
+    </div>
+
+    <!-- Sağ Açıklama Oku & Metni -->
+    <div class="callout right">
+      <button class="nav-arrow-btn" id="next-btn" onclick="changeSlide(1)">❯</button>
+      <div class="callout-line"></div>
+      <div class="callout-text" id="callout-right-text">
+        Firebase Firestore ile anlık veri akışı ve dinamik grafikler
+      </div>
+    </div>
+
+  </main>
+
+  <!-- ============================================================ -->
+  <!-- BENTO GRID PROJE MİMARİSİ & TEKNİK DETAYLAR                 -->
+  <!-- ============================================================ -->
+  <section class="bento-section">
+    <div class="section-header">
+      <div class="section-tag">Teknik Derinlik</div>
+      <h2 class="section-title">İşletme Defteri Mimari Detayları</h2>
+    </div>
+
+    <div class="bento-grid">
+      <!-- Kart 1 -->
+      <div class="bento-card col-2">
+        <div class="bento-icon">🚀</div>
+        <h3>Google Play Console & Capacitor Dağıtımı</h3>
+        <p>
+          React ile geliştirilen web mimarisi Capacitor kullanılarak yerel Android paketine (AAB) dönüştürüldü.
+          Release keystore oluşturuldu, Google Play kapalı test sürecinde gerçek kullanıcılardan geri bildirim toplanarak sürümler yayınlandı.
+        </p>
+        <div class="bento-tags">
+          <span class="tag-badge">Google Play Console</span>
+          <span class="tag-badge">Capacitor</span>
+          <span class="tag-badge">Signed AAB</span>
+          <span class="tag-badge">Android Studio</span>
+        </div>
+      </div>
+
+      <!-- Kart 2 -->
+      <div class="bento-card">
+        <div class="bento-icon">🔥</div>
+        <h3>Firebase & Bulut Altyapısı</h3>
+        <p>
+          Kullanıcı bazlı Firestore veri modeli (`users/{uid}/customers`). Güvenli Firebase Authentication oturum yönetimi.
+        </p>
+        <div class="bento-tags">
+          <span class="tag-badge">Cloud Firestore</span>
+          <span class="tag-badge">Firebase Auth</span>
+        </div>
+      </div>
+
+      <!-- Kart 3 -->
+      <div class="bento-card">
+        <div class="bento-icon">📱</div>
+        <h3>PWA & Çevrimdışı Çalışma</h3>
+        <p>
+          Manifest ve Service Worker desteği ile hem masaüstünde hem mobilde uygulama gibi yüklenebilen PWA yeteneği.
+        </p>
+        <div class="bento-tags">
+          <span class="tag-badge">PWA</span>
+          <span class="tag-badge">Responsive</span>
+          <span class="tag-badge">Vite</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <script>
+    // Slide Data & Annotations (Just like user's dream visual!)
+    const slidesData = [
+      {
+        title: "1 / 4: Gelir, Gider ve Kasa Dashboard Ekranı",
+        leftText: "İşletmenin tüm gelir, gider ve cari hareketlerini anlık özetleyin",
+        rightText: "Firebase Firestore ile anlık veri akışı ve dinamik grafikler"
+      },
+      {
+        title: "2 / 4: Cari Müşteri ve Tedarikçi Yönetimi",
+        leftText: "Her müşteri ve tedarikçi için ayrı borç/alacak takibi",
+        rightText: "Tek dokunuşla geçmiş hareketleri ve cari bakiyeleri filtreleyin"
+      },
+      {
+        title: "3 / 4: Hızlı Satış, Tahsilat & Ödeme Girişi",
+        leftText: "Satış, alış, ödeme ve tahsilatı tek pencereden kaydedin",
+        rightText: "Anında kullanıcı bazlı Firestore alt koleksiyonuna yazılır"
+      },
+      {
+        title: "4 / 4: Dönemsel Raporlama & Finansal Analiz",
+        leftText: "Geçmişe dönük kâr, zarar ve nakit akışını analiz edin",
+        rightText: "Küçük işletmeler için muhasebe defterini cebe taşıyan deneyim"
+      }
+    ];
+
+    let currentSlide = 0;
+    const totalSlides = slidesData.length;
+
+    function updateSlide() {
+      // Slides transition
+      for (let i = 0; i < totalSlides; i++) {
+        const slide = document.getElementById(`slide-${i}`);
+        slide.classList.remove('active', 'prev');
+        if (i === currentSlide) {
+          slide.classList.add('active');
+        } else if (i < currentSlide) {
+          slide.classList.add('prev');
+        }
+      }
+
+      // Update Texts
+      document.getElementById('screen-title').textContent = slidesData[currentSlide].title;
+      document.getElementById('callout-left-text').textContent = slidesData[currentSlide].leftText;
+      document.getElementById('callout-right-text').textContent = slidesData[currentSlide].rightText;
+
+      // Update Dots
+      const dots = document.querySelectorAll('.dot');
+      dots.forEach((dot, idx) => {
+        dot.classList.toggle('active', idx === currentSlide);
+      });
+
+      // Update App Nav
+      const navItems = document.querySelectorAll('.app-nav-item');
+      navItems.forEach((item, idx) => {
+        item.classList.toggle('active', idx === currentSlide);
+      });
+    }
+
+    function changeSlide(direction) {
+      currentSlide = (currentSlide + direction + totalSlides) % totalSlides;
+      updateSlide();
+    }
+
+    function goToSlide(index) {
+      currentSlide = index;
+      updateSlide();
+    }
+
+    // Touch / Swipe support for the phone screen
+    let touchStartX = 0;
+    let touchEndX = 0;
+    const screenEl = document.querySelector('.phone-screen');
+
+    screenEl.addEventListener('touchstart', e => {
+      touchStartX = e.changedTouches[0].screenX;
+    });
+
+    screenEl.addEventListener('touchend', e => {
+      touchEndX = e.changedTouches[0].screenX;
+      if (touchStartX - touchEndX > 40) {
+        changeSlide(1); // Swipe left -> Next
+      } else if (touchEndX - touchStartX > 40) {
+        changeSlide(-1); // Swipe right -> Prev
+      }
+    });
+
+    function switchProject(type) {
+      alert(type.toUpperCase() + " projesi seçildi. Portfolyoda bu butonlara tıklandığında telefon/laptop mockup'ı ve tüm bento kartları bu projeye göre canlı olarak değişecek!");
+    }
+  </script>
+</body>
+</html>
